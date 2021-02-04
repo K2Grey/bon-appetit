@@ -34,7 +34,7 @@ class Recipe
     /**
      * @ORM\Column(type="text")
      */
-    private ?string $description;
+    private ?string $preparation;
 
     /**
      * @ORM\Column(type="time")
@@ -49,29 +49,29 @@ class Recipe
     /**
      * @ORM\Column(type="integer")
      */
-    private $serving;
+    private ?int $serving;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private ?string $image;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="recipe", orphanRemoval=true)
      */
-    private $comments;
+    private Collection $comments;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private ?Category $category;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Gedmo\Slug(fields={"title"})
      */
-    private $slug;
+    private ?string $slug;
 
     public function __construct()
     {
@@ -107,14 +107,14 @@ class Recipe
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPreparation(): ?string
     {
-        return $this->description;
+        return $this->preparation;
     }
 
-    public function setDescription(string $description): self
+    public function setPreparation(string $preparation): self
     {
-        $this->description = $description;
+        $this->preparation = $preparation;
 
         return $this;
     }

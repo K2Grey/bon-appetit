@@ -18,9 +18,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $faker = Faker\Factory::create('fr_FR');
 
         $preparationTime = new DateTime();
-//        $preparationTime->setTime(0, rand(10, 60));
         $cookingTime = new DateTime();
-//        $cookingTime->setTime(0, rand(30, 90));
 
         for ($i = 0; $i < self::RECIPES_COUNT; $i++) {
             $recipe = new Recipe();
@@ -28,11 +26,11 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
             $cookingTime->setTime(0, rand(30, 90));
             $recipe->setTitle($faker->sentence)
                 ->setIngredient($faker->text)
-                ->setDescription($faker->sentence)
+                ->setPreparation($faker->sentence)
                 ->setPreparationTime($preparationTime)
                 ->setCookingTime($cookingTime)
                 ->setServing(rand(1, 6))
-                ->setImage('image-test.jpg')
+                ->setImage('image-test.b840dc77.jpg')
                 ->setCategory($this->getReference('category_' . rand(0, count(CategoryFixtures::CATEGORIES)-1)));
             $manager->persist($recipe);
             $this->addReference('recipe_' . $i, $recipe);

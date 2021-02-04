@@ -18,23 +18,23 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="category")
      */
-    private $recipes;
+    private Collection $recipes;
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
      * @Gedmo\Slug(fields={"name"})
      */
-    private $slug;
+    private ?string $slug;
 
     public function __construct()
     {
