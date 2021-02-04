@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
@@ -22,27 +24,27 @@ class Recipe
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $ingredient;
+    private ?string $ingredient;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="time")
      */
-    private $preparationTime;
+    private ?\DateTimeInterface $preparationTime;
 
     /**
      * @ORM\Column(type="time")
      */
-    private $cookingTime;
+    private ?\DateTimeInterface $cookingTime;
 
     /**
      * @ORM\Column(type="integer")
@@ -64,6 +66,12 @@ class Recipe
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -197,6 +205,18 @@ class Recipe
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
