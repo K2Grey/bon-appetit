@@ -15,29 +15,29 @@ class Comment
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private ?User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $recipe;
+    private ?Recipe $recipe;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $comment;
+    private ?string $comment;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $rate;
+    private ?int $rate;
 
     public function getId(): ?int
     {

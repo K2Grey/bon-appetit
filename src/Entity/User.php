@@ -18,38 +18,38 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
      */
-    private $nickname;
+    private ?string $nickname;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", orphanRemoval=true)
      */
-    private $comments;
+    private Collection $comments;
 
     /**
      * @ORM\ManyToMany(targetEntity=Recipe::class)
      */
-    private $favorite;
+    private Collection $favorite;
 
     public function __construct()
     {

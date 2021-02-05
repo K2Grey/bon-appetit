@@ -3,14 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
-use DateTimeImmutable;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
+ * @Vich\Uploadable
  */
 class Recipe
 {
@@ -19,7 +22,7 @@ class Recipe
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -34,44 +37,54 @@ class Recipe
     /**
      * @ORM\Column(type="text")
      */
-    private ?string $description;
+    private ?string $preparation;
 
     /**
      * @ORM\Column(type="time")
      */
-    private ?\DateTimeInterface $preparationTime;
+    private ?DateTime $preparationTime;
 
     /**
      * @ORM\Column(type="time")
      */
-    private ?\DateTimeInterface $cookingTime;
+    private ?DateTime $cookingTime;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $serving;
+    private ?int $serving;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $image;
+    private ?string $image;
+
+    /**
+     * @Vich\UploadableField(mapping="image_file", fileNameProperty="image")
+     */
+    private ?File $imageFile = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="recipe", orphanRemoval=true)
      */
-    private $comments;
+    private Collection $comments;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private ?Category $category;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Gedmo\Slug(fields={"title"})
      */
-    private $slug;
+    private ?string $slug;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $updatedAt;
 
     public function __construct()
     {
@@ -107,14 +120,14 @@ class Recipe
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPreparation(): ?string
     {
-        return $this->description;
+        return $this->preparation;
     }
 
-    public function setDescription(string $description): self
+    public function setPreparation(string $preparation): self
     {
-        $this->description = $description;
+        $this->preparation = $preparation;
 
         return $this;
     }
@@ -124,19 +137,19 @@ class Recipe
         return $this->preparationTime;
     }
 
-    public function setPreparationTime(\DateTimeInterface $preparationTime): self
+    public function setPreparationTime(DateTime $preparationTime): self
     {
         $this->preparationTime = $preparationTime;
 
         return $this;
     }
 
-    public function getCookingTime(): ?\DateTimeInterface
+    public function getCookingTime(): DateTime
     {
         return $this->cookingTime;
     }
 
-    public function setCookingTime(\DateTimeInterface $cookingTime): self
+    public function setCookingTime(DateTime $cookingTime): self
     {
         $this->cookingTime = $cookingTime;
 
@@ -160,11 +173,26 @@ class Recipe
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null): Recipe
+    {
+        $this->imageFile = $image;
+        if ($image) {
+            $this->setUpdatedAt(new DateTime('now'));
+        }
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     /**
@@ -217,6 +245,18 @@ class Recipe
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
