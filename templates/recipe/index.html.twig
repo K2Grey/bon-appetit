@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe index{% endblock %}
+
+{% block body %}
+    <h2>Trouvez une recette:</h2>
+    {{ form_start(form, {'attr': {'class': 'form-inline my-2 my-lg-0'}}) }}
+    {{ form_row(form.search, {'attr': {'class': 'form-control mr-sm-2'}}) }}
+    <button class="btn btn-secondary my-2 my-sm-0">{{ button_label|default('Chercher') }}</button>
+    {{ form_end(form) }}
+    <div class="container-fluid">
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
+                    <a href="{{ path('recipe_show', {'recipeSlug': recipe.slug}) }}">
+                        <div class="card text-center">
+                            <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="{{ recipe.image }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ recipe.title }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
