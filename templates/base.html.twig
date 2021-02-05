@@ -7,7 +7,9 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block header %}{% include '_navbar.html.twig' %}{% endblock %}
+        <header>
+            {{ render(controller('App\\Controller\\HomeController::navbarTop')) }}
+        </header>
         {% block body %}{% endblock %}
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
