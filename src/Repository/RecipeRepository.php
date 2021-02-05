@@ -28,6 +28,17 @@ class RecipeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findLikeName(string $name)
+    {
+        return $queryBuilder = $this->createQueryBuilder('r')
+            ->where('r.title LIKE :name')
+            ->orWhere('r.ingredient LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('r.title', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Recipe[] Returns an array of Recipe objects
     //  */

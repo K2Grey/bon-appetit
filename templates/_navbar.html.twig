@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand mr-5" href="#">Bon Appétit</a>
+    <a class="navbar-brand mr-5" href="{{ path('home') }}">Bon Appétit</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,11 +13,12 @@
                     </a>
                 </li>
             {% endfor %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('recipe_index') }}">
+                    Trouvez une recette
+                </a>
+            </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0 mr-4">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="#">Connexion</a>

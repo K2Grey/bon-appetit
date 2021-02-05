@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Form\SearchRecipeType;
 use App\Repository\RecipeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,14 +18,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class RecipeController extends AbstractController
 {
     /**
-     * @Route("/", name="index", methods={"GET"})
+     * @Route("/", name="index")
+     * @param Request $request
      * @param RecipeRepository $recipeRepository
      * @return Response
      */
-    public function index(RecipeRepository $recipeRepository): Response
+    public function index(Request $request, RecipeRepository $recipeRepository): Response
     {
+        $form = $this->createForm(SearchRecipeType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $recipes = $recipeRepository->findLikeName($search);
+        } else {
+            $recipes = $recipeRepository->findAll();
+        }
         return $this->render('recipe/index.html.twig', [
-            'recipes' => $recipeRepository->findAll(),
+            'recipes' => $recipes,
+            'form' => $form->createView(),
         ]);
     }
 
