@@ -62,7 +62,8 @@ class CategoryController extends AbstractController
     public function show(Category $category): Response
     {
         return $this->render('category/show.html.twig', [
-            'category' => $category,
+            'categoryName' => $category->getName(),
+            'recipes' => $category->getRecipes(),
         ]);
     }
 

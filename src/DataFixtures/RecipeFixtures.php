@@ -30,7 +30,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 ->setPreparationTime($preparationTime)
                 ->setCookingTime($cookingTime)
                 ->setServing(rand(1, 6))
-                ->setImage('image-test.b840dc77.jpg')
+                ->setImage('image-test.jpg')
                 ->setCategory($this->getReference('category_' . rand(0, count(CategoryFixtures::CATEGORIES)-1)));
             $manager->persist($recipe);
             $this->addReference('recipe_' . $i, $recipe);
