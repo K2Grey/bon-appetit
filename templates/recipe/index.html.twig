@@ -1,22 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recipe index{% endblock %}
+{% block title %}Trouver une recette{% endblock %}
 
 {% block body %}
-    <h2>Trouvez une recette:</h2>
-    {{ form_start(form, {'attr': {'class': 'form-inline my-2 my-lg-0'}}) }}
-    {{ form_row(form.search, {'attr': {'class': 'form-control mr-sm-2'}}) }}
-    <button class="btn btn-secondary my-2 my-sm-0">{{ button_label|default('Chercher') }}</button>
-    {{ form_end(form) }}
-    <div class="container-fluid">
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <h1>Trouvez une recette:</h1>
+            </div>
+            <div class="col text-right">
+                <a href="{{ path('recipe_new') }}" class="btn btn-secondary mr-2">Nouvelle recette</a>
+            </div>
+        </div>
         <div class="row">
+            <div class="col d-flex justify-content-center my-4">
+                <div>
+                    {{ form_start(form, {'attr': {'class': 'form-inline my-2 my-lg-0'}}) }}
+                    {{ form_row(form.search, {'attr': {'class': 'form-control mr-sm-2'}}) }}
+                    <button class="btn btn-secondary ml-2 my-2 my-sm-0">{{ button_label|default('Chercher') }}</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
             {% for recipe in recipes %}
-                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
+                <div class="col-12 col-sm-10 col-md-6 col-xl-4 mt-4">
                     <a href="{{ path('recipe_show', {'recipeSlug': recipe.slug}) }}">
                         <div class="card text-center">
                             <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="{{ recipe.image }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ recipe.title }}</h5>
+                            <div class="card-body" >
+                                <p class="card-text">{{ recipe.title }}</p>
                             </div>
                         </div>
                     </a>

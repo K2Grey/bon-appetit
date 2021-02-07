@@ -3,16 +3,23 @@
 {% block title %}Bon Appétit - {{ categoryName }}{% endblock %}
 
 {% block body %}
-    <h2>{{ categoryName }}:</h2>
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <h1>{{ categoryName }}:</h1>
+            </div>
+            <div class="col text-right">
+                <a href="{{ path('recipe_new') }}" class="btn btn-secondary mr-2">Nouvelle recette</a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
             {% for recipe in recipes %}
-                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
+                <div class="col-12 col-sm-10 col-md-6 col-xl-4 mt-4">
                     <a href="{{ path('recipe_show', {'recipeSlug': recipe.slug}) }}">
                         <div class="card text-center">
                             <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="{{ recipe.image }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ recipe.title }}</h5>
+                            <div class="card-body" >
+                                <p class="card-text">{{ recipe.title }}</p>
                             </div>
                         </div>
                     </a>
