@@ -57,7 +57,7 @@ class Recipe
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $image;
+    private ?string $image = null;
 
     /**
      * @Vich\UploadableField(mapping="image_file", fileNameProperty="image")

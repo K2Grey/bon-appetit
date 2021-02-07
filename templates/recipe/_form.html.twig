@@ -1,4 +1,48 @@
+{#{{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <button class="btn">{{ button_label|default('Save') }}</button>#}
+{#{{ form_end(form) }}#}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.title, 'Titre') }}
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.preparation, 'Préparation') }}
+            {{ form_widget(form.preparation, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.ingredient, 'Ingrédients') }}
+            {{ form_widget(form.ingredient, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.serving, 'Personnes') }}
+            {{ form_widget(form.serving, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.preparationTime, 'Temps préparation') }}
+            {{ form_widget(form.preparationTime) }}
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.cookingTime, 'Temps cuisson') }}
+            {{ form_widget(form.cookingTime) }}
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.imageFile, 'Image') }}
+            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control-file'}}) }}
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 form-group">
+            {{ form_label(form.category, 'Catégorie') }}
+            {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-secondary">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
+
+
+</div>
 {{ form_end(form) }}

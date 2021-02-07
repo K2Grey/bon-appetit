@@ -23,7 +23,7 @@ class RecipeRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('r')
             ->orderBy('r.id', 'DESC')
-            ->setMaxResults(8)
+            ->setMaxResults(9)
             ->getQuery()
             ->getResult();
     }
